@@ -19,6 +19,7 @@ from register import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',views.home, name='home_index'),
     path('project', views.add_show, name="add&show"),
     path('delete/<int:id>/', views.delete_data, name="deletedata"),
     path('<int:id>/', views.update_data, name="updatedata"),

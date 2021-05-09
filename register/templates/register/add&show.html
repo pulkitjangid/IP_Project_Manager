@@ -1,7 +1,7 @@
 {% extends 'register/base.html' %}
 {% block content %}
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <h4 class="text-center alert alert-info">Add Your Project Details</h4>
         <form action="" method="POST">
             {% csrf_token %}
@@ -10,10 +10,10 @@
         </form>
     </div>
 
-    <div class="col-sm-8 offset-1">
+    <div class="col-sm-8">
         <h4 class="text-center alert alert-info">Student Details</h4>
         {% if stu %}
-        <table class="table table-borderless table-hover">
+        <table class="table table-borderless table-hover mt-2">
             <thead class="table-light">
                 <tr>
                     <th scope="col">Id</th>
@@ -38,9 +38,7 @@
                             {% csrf_token %}
                             <input type="submit" class="btn btn-danger" value="Delete">
                         </form>
-
                     </td>
-
                 </tr>
                 {% endfor %}
             </tbody>
@@ -50,12 +48,5 @@
         {% endif %}
     </div>
 </div>
-<script type="text/javascript">
-    function FbotonOn() { 
-    
-        if(document.getElementById('checkBox').checked)
-            document.getElementById('texto').innerHTML = "Thank you";
-        else
-            document.getElementById('texto').innerHTML = "Good Bye";
-    }
+
 {% endblock content %}

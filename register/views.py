@@ -3,7 +3,8 @@ from .forms import ProjectRegistration
 from .models import User as data
 
 # Create your views here.
-
+def home(request):
+    return render(request,'register/index.html')
 #To add and show the details
 def add_show(request):
     if request.method == 'POST':

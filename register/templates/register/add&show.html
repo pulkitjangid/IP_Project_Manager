@@ -34,10 +34,12 @@
                     <td>{{ s.Description }}</td>
                     <td>
                         <a href="{% url 'updatedata' s.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        {% if user.is_superuser %}
                         <form action="{% url 'deletedata' s.id %}" method="post" class="d-inline">
                             {% csrf_token %}
                             <input type="submit" class="btn btn-danger" value="Delete">
                         </form>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}

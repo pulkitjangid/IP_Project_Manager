@@ -23,4 +23,9 @@ urlpatterns = [
     path('project', views.add_show, name="add&show"),
     path('delete/<int:id>/', views.delete_data, name="deletedata"),
     path('<int:id>/', views.update_data, name="updatedata"),
+    path('signup/',views.sign_up, name="signup"),
+    path('login/',views.user_login, name="login"),
+    path('profile/',views.user_profile, name="profile"),
+    path('logout/',views.user_logout, name="logout"),
+    path('changepass/',views.user_changepass, name="changepass"),
 ]

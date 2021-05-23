@@ -1,10 +1,14 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
 from .forms import ProjectRegistration
 from .models import MUser as data
+from .models import Room, Message
 from .forms import SignUpForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse, JsonResponse
+
+
 
 #Authorization Sign Up 
 def sign_up(request):
@@ -14,7 +18,7 @@ def sign_up(request):
             messages.success(request, "Account Created Sccessfully !!")
             frm.save()
             frm = SignUpForm()
-        #return HttpResponseRedirect('signup')
+            return HttpResponseRedirect('/login/')
 
     else:
         frm = SignUpForm()
@@ -65,7 +69,7 @@ def home(request):
 def add_show(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            fm = ProjectRegistration(request.POST)
+            fm = ProjectRegistration(request.POST, request.FILES)
             if fm.is_valid():
                 '''snm = fm.cleaned_data['Student_Name']
                 pnm = fm.cleaned_data['Project_Name']
@@ -88,7 +92,7 @@ def update_data(request, id):
     if request.user.is_authenticated:
         if request.method == 'POST':
             pi = data.objects.get(pk=id)
-            fm = ProjectRegistration(request.POST, instance=pi)
+            fm = ProjectRegistration(request.POST, request.FILES, instance = pi)
             if fm.is_valid():
                 fm.save()
             
@@ -109,3 +113,60 @@ def delete_data(request, id):
     else:
         return HttpResponseRedirect('/project')
 
+#Discussion Chat system
+def discussion(request):
+    if request.user.is_authenticated:
+        return render(request, 'register/discussion.html')
+    else:
+        return HttpResponseRedirect('/login/')
+
+#Room of groups
+
+def room(request, room):
+    if request.user.is_authenticated:
+        username = request.GET.get('username')
+        room_details = Room.objects.get(name=room)
+        return render(request, 'register/room.html', {
+            'username': username,
+            'room': room,
+            'room_details': room_details
+        })
+    else:
+        return HttpResponseRedirect('/login/')
+
+
+def checkview(request):
+    if request.user.is_authenticated:
+        room = request.POST['room_name']
+        username = request.POST['username']
+
+        if Room.objects.filter(name=room).exists():
+            return redirect('/'+room+'/?username='+username)
+        else:
+            new_room = Room.objects.create(name=room)
+            new_room.save()
+            return redirect('/'+room+'/?username='+username)
+    else:
+        return HttpResponseRedirect('/login/')
+
+
+def send(request):
+    if request.user.is_authenticated:
+        message = request.POST['message']
+        username = request.POST['username']
+        room_id = request.POST['room_id']
+
+        new_message = Message.objects.create(value=message, user=username, room=room_id)
+        new_message.save()
+        return HttpResponse('Message sent successfully')
+    else:
+        return HttpResponseRedirect('/login/')
+
+
+def getMessages(request, room):
+    if request.user.is_authenticated:
+        room_details = Room.objects.get(name=room)
+        messages = Message.objects.filter(room=room_details.id)
+        return JsonResponse({"messages":list(messages.values())})
+    else:
+        return HttpResponseRedirect('/login/')

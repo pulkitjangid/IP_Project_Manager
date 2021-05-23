@@ -22,7 +22,7 @@ class SignUpForm(UserCreationForm):
 class ProjectRegistration(forms.ModelForm):
     class Meta:
          model = MUser
-         fields = ['Student_Name', 'Project_Name','Roll_No', 'Description']
+         fields = ['Student_Name', 'Project_Name','Roll_No', 'Description','Upload']
          widgets = {
              'Student_Name' : forms.TextInput(attrs={'class':'form-control'}),
              'Project_Name' : forms.TextInput(attrs={'class':'form-control'}),

@@ -1,11 +1,9 @@
-{% extends 'register/base.html' %}
-{% block content %}
+{% extends 'register/base.html' %} {% block content %}
 <div class="row">
     <div class="col-sm-4">
         <h4 class="text-center alert alert-info">Add Your Project Details</h4>
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %} {{form.as_p}}
             <input type="submit" href="{% url 'add&show'%}" class="btn btn-success" value="Submit">
         </form>
     </div>
@@ -22,6 +20,10 @@
                     <th scope="col">Roll No</th>
                     <th scope="col">Description</th>
                     <th scope="col">Action</th>
+                    {% if user.is_superuser %}
+                    <th scope="col">Files</th>
+                    {% endif %}
+
                 </tr>
             </thead>
             <tbody>
@@ -33,14 +35,17 @@
                     <td>{{ s.Roll_No }}</td>
                     <td>{{ s.Description }}</td>
                     <td>
-                        <a href="{% url 'updatedata' s.id %}" class="btn btn-warning btn-sm">Edit</a>
-                        {% if user.is_superuser %}
+                        <a href="{% url 'updatedata' s.id %}" class="btn btn-warning btn-sm">Edit</a> {% if user.is_superuser %}
                         <form action="{% url 'deletedata' s.id %}" method="post" class="d-inline">
                             {% csrf_token %}
                             <input type="submit" class="btn btn-danger" value="Delete">
                         </form>
                         {% endif %}
                     </td>
+                    {% if user.is_superuser %}
+                    <td><a href="/media/{{s.Upload}}">Download</a></td>
+                    {% endif %}
+
                 </tr>
                 {% endfor %}
             </tbody>

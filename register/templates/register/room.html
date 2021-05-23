@@ -1,0 +1,266 @@
+{% load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="{% static 'register/css/bootstrap.min.css' %}">
+    <style>
+        .vertical-nav {
+            min-width: 17rem;
+            width: 17rem;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s;
+        }
+        
+        .page-content {
+            width: calc(100% - 17rem);
+            margin-left: 10rem;
+            transition: all 0.4s;
+        }
+        /* for toggle behavior */
+        
+        #sidebar.active {
+            margin-left: -17rem;
+        }
+        
+        #content.active {
+            width: 100%;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: -17rem;
+            }
+            #sidebar.active {
+                margin-left: 0;
+            }
+            #content {
+                width: 100%;
+                margin: 0;
+            }
+            #content.active {
+                margin-left: 17rem;
+                width: calc(100% - 17rem);
+            }
+        }
+        
+        body {
+            background: #599fd9;
+            background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
+            background: linear-gradient(to right, #599fd9, #c2e59c);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .separator {
+            margin: 3rem 0;
+            border-bottom: 1px dashed #fff;
+        }
+        
+        .text-uppercase {
+            letter-spacing: 0.1em;
+        }
+        
+        .text-gray {
+            color: #aaa;
+        }
+        
+        .log {
+            margin-right: 0px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="vertical-nav bg-white" id="sidebar">
+        <div class="py-4 px-3 mb-3 bg-light">
+            <div class="media d-flex align-items-center"><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Swami_Vivekananda_1893_Scanned_Image.jpg" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
+                <div class="media-body">
+                    <h4 class="m-0">SVGMS</h4>
+                    <p class="font-weight-light text-muted mb-0">Swami Vivekananda School</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Features</p>
+
+        <ul class="nav flex-column bg-white mb-0">
+            <li class="nav-item">
+                <a href="/profile" class="nav-link text-dark font-italic bg-light">
+                    <i class="fa fa-user mr-3 text-primary fa-fw"></i> Profile
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/home" class="nav-link text-dark font-italic">
+                    <i class="fa fa-home mr-3 text-primary fa-fw"></i> Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'add&show' %}" class="nav-link text-dark font-italic">
+                    <i class="fa fa-plus-circle mr-3 text-primary fa-fw"></i> Add Project
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/" class="nav-link text-dark font-italic">
+
+                    <i class="fa fa-comments-o text-primary fa-fw" aria-hidden="true"></i> Discussion
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-lightbulb-o mr-3 text-primary fa-fw"></i> Project Ideas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i> Latest Happenings
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+
+    <script>
+        $(document).ready(function() {
+
+            setInterval(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: "/getMessages/{{room}}/",
+                    success: function(response) {
+                        console.log(response);
+                        $("#display").empty();
+                        for (var key in response.messages) {
+                            var temp = "<div class='container darker'><b>" + response.messages[key].user + "</b><p>" + response.messages[key].value + "</p><span class='time-left'>" + response.messages[key].date + "</span></div>";
+                            $("#display").append(temp);
+                        }
+                    },
+                    error: function(response) {
+                        alert('An error occured')
+                    }
+                });
+            }, 1000);
+        })
+    </script>
+
+
+    <div class="container">
+        <style>
+            input[type=text],
+            select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            
+            input[type=submit] {
+                width: 100%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            
+            input[type=submit]:hover {
+                background-color: #45a049;
+            }
+            
+            div {
+                border-radius: 5px;
+            }
+        </style>
+        <div class="page-content p-5" id="content">
+            <!-- Toggle button -->
+            <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i
+                class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small></button> &nbsp;
+            <a href="{% url 'logout' %}" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4 log">Logout</a>
+
+            <h2 class="display-4 text-white">Discussion</h2>
+
+            <div class="separator"></div>
+            <div class="row text-white">
+                <div class="col-lg-7 par">
+                    <h2>{{room}} - Group's Discussion</h2>
+
+                    <div id="display">
+
+                        <!-- <div class="container darker">
+                  <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
+                  <span class="time-left">20th, April 2021</span>
+                </div> -->
+                        <hr>
+                    </div>
+
+                    <form id="post-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="username" id="username" value="{{username}}" />
+                        <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}" />
+                        <input type="text" name="message" id="message" width="100px" />
+                        <input type="submit" value="Send">
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+
+</body>
+
+<script type="text/javascript">
+    $(document).on('submit', '#post-form', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '/send',
+            data: {
+                username: $('#username').val(),
+                room_id: $('#room_id').val(),
+                message: $('#message').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data) {
+                //alert(data)
+            }
+        });
+        document.getElementById('message').value = ''
+    });
+</script>
+
+<script>
+    document.getElementById("sidebarCollapse").onclick = function() {
+        myFunction()
+    };
+
+    function myFunction() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('content').classList.toggle('active');
+    }
+</script>
+
+<script src="{% static 'register/js/jquery.js' %}"></script>
+<script src="{% static 'register/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'register/js/popper.js' %}"></script>
+<script src="https://use.fontawesome.com/69a8a7b9cc.js"></script>
+
+</html>

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 <head>
@@ -19,46 +18,40 @@
         box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
         transition: all 0.4s;
     }
-
+    
     .page-content {
         width: calc(100% - 17rem);
         margin-left: 17rem;
         transition: all 0.4s;
     }
-
     /* for toggle behavior */
-
+    
     #sidebar.active {
         margin-left: -17rem;
     }
-
+    
     #content.active {
         width: 100%;
         margin: 0;
     }
-
+    
     @media (max-width: 768px) {
         #sidebar {
             margin-left: -17rem;
         }
-
         #sidebar.active {
             margin-left: 0;
         }
-
         #content {
             width: 100%;
             margin: 0;
         }
-
         #content.active {
             margin-left: 17rem;
             width: calc(100% - 17rem);
         }
     }
-
-
-
+    
     body {
         background: #599fd9;
         background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
@@ -66,20 +59,20 @@
         min-height: 100vh;
         overflow-x: hidden;
     }
-
+    
     .separator {
         margin: 3rem 0;
         border-bottom: 1px dashed #fff;
     }
-
+    
     .text-uppercase {
         letter-spacing: 0.1em;
     }
-
+    
     .text-gray {
         color: #aaa;
     }
-
+    
     .pip {
         margin-right: 50px;
     }
@@ -91,9 +84,7 @@
         <!-- Vertical navbar -->
         <div class="vertical-nav bg-white container-fluid col-sm-2" id="sidebar">
             <div class="py-4 px-3 mb-4 bg-light">
-                <div class="media d-flex align-items-center"><img
-                        src="https://upload.wikimedia.org/wikipedia/commons/8/80/Swami_Vivekananda_1893_Scanned_Image.jpg"
-                        alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
+                <div class="media d-flex align-items-center"><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Swami_Vivekananda_1893_Scanned_Image.jpg" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
                     <div class="media-body">
                         <h4 class="m-0">SVGMS</h4>
                         <p class="font-weight-light text-muted mb-0">Swami Vivekananda School</p>
@@ -106,39 +97,33 @@
             <ul class="nav flex-column bg-white mb-0">
                 <li class="nav-item">
                     <a href="profile/" class="nav-link text-dark font-italic bg-light">
-                        <i class="fa fa-user mr-3 text-primary fa-fw"></i>
-                        Profile
+                        <i class="fa fa-user mr-3 text-primary fa-fw"></i> Profile
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/" class="nav-link text-dark font-italic bg-light">
-                        <i class="fa fa-home mr-3 text-primary fa-fw"></i>
-                        Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-dark font-italic">
-                        <i class="fa fa-plus-circle mr-3 text-primary fa-fw"></i>
-                        Add Project
+                    <a href="/home" class="nav-link text-dark font-italic bg-light">
+                        <i class="fa fa-home mr-3 text-primary fa-fw"></i> Home
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link text-dark font-italic">
+                        <i class="fa fa-plus-circle mr-3 text-primary fa-fw"></i> Add Project
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" class="nav-link text-dark font-italic">
 
-                        <i class="fa fa-comments-o text-primary fa-fw" aria-hidden="true"></i>
-                        Discussion
+                        <i class="fa fa-comments-o text-primary fa-fw" aria-hidden="true"></i> Discussion
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link text-dark font-italic">
-                        <i class="fa fa-lightbulb-o mr-3 text-primary fa-fw"></i>
-                        Project Ideas
+                        <i class="fa fa-lightbulb-o mr-3 text-primary fa-fw"></i> Project Ideas
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link text-dark font-italic">
-                        <i class="fa fa-newspaper-o mr-1 text-primary fa-fw"></i>
-                        Latest Happenings
+                        <i class="fa fa-newspaper-o mr-1 text-primary fa-fw"></i> Latest Happenings
                     </a>
                 </li>
             </ul>
@@ -146,8 +131,7 @@
 
         <div class="page-content p-5" id="content">
             <!-- Toggle button -->
-            <button id="sidebarCollapse" type="button"
-                class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small
+            <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small
                     class="text-uppercase font-weight-bold">Toggle</small></button>
             <a href="{% url 'logout' %}" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4 log">Logout</a>
 
@@ -159,16 +143,14 @@
             <div class="separator"></div>
             <div class="row text-white">
                 <div class="col-lg-12">
-                    {% block content %}
-
-                    {% endblock content %}
+                    {% block content %} {% endblock content %}
                 </div>
 
             </div>
 
         </div>
         <script>
-            document.getElementById("sidebarCollapse").onclick = function () {
+            document.getElementById("sidebarCollapse").onclick = function() {
                 myFunction()
             };
 

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 <head>
@@ -19,46 +18,40 @@
         box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
         transition: all 0.4s;
     }
-
+    
     .page-content {
         width: calc(100% - 17rem);
         margin-left: 17rem;
         transition: all 0.4s;
     }
-
     /* for toggle behavior */
-
+    
     #sidebar.active {
         margin-left: -17rem;
     }
-
+    
     #content.active {
         width: 100%;
         margin: 0;
     }
-
+    
     @media (max-width: 768px) {
         #sidebar {
             margin-left: -17rem;
         }
-
         #sidebar.active {
             margin-left: 0;
         }
-
         #content {
             width: 100%;
             margin: 0;
         }
-
         #content.active {
             margin-left: 17rem;
             width: calc(100% - 17rem);
         }
     }
-
-
-
+    
     body {
         background: #599fd9;
         background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
@@ -66,23 +59,23 @@
         min-height: 100vh;
         overflow-x: hidden;
     }
-
+    
     .separator {
         margin: 3rem 0;
         border-bottom: 1px dashed #fff;
     }
-
+    
     .text-uppercase {
         letter-spacing: 0.1em;
     }
-
+    
     .text-gray {
         color: #aaa;
     }
-    .er{
+    
+    .er {
         color: red;
     }
-
 </style>
 
 <body>
@@ -90,9 +83,7 @@
     <!-- navbar -->
     <div class="vertical-nav bg-white" id="sidebar">
         <div class="py-4 px-3 mb-3 bg-light">
-            <div class="media d-flex align-items-center"><img
-                    src="https://upload.wikimedia.org/wikipedia/commons/8/80/Swami_Vivekananda_1893_Scanned_Image.jpg"
-                    alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
+            <div class="media d-flex align-items-center"><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Swami_Vivekananda_1893_Scanned_Image.jpg" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
                 <div class="media-body">
                     <h4 class="m-0">SVGMS</h4>
                     <p class="font-weight-light text-muted mb-0">Swami Vivekananda School</p>
@@ -107,8 +98,8 @@
     <div class="page-content p-5" id="content">
         <!-- Toggle button -->
         <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i
-                class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small></button> &nbsp;
-                <a href="{% url 'signup'%}" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4">Signup</a>
+                class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menu</small></button> &nbsp;
+        <a href="{% url 'signup'%}" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4">Signup</a>
 
 
         <h2 class="display-4 text-white">Login</h2>
@@ -116,28 +107,21 @@
         <div class="separator"></div>
         <div class="row text-white">
             <div class="col-lg-7 par">
-                <div class="p-5 rounded  shadow-sm col-sm-8"> 
-                    <form method="post" action="" novalidate> 
-                        <div class="form-group"> 
-                            {% csrf_token %}
-                            {% if form.non_field_errors %}
-                                {% for error in form.non_field_errors %}
-                                  <p class="er">{{error}}</p>
-                                {% endfor %}
-                            {% endif %}
-                            {% for fm in form %}
-                            {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} <br><br>
-                            {% endfor %}
+                <div class="p-5 rounded  shadow-sm col-sm-8">
+                    <form method="post" action="" novalidate>
+                        <div class="form-group">
+                            {% csrf_token %} {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+                            <p class="er">{{error}}</p>
+                            {% endfor %} {% endif %} {% for fm in form %} {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} <br><br> {% endfor %}
                         </div>
-                        <input type="submit" value="Login"
-                            class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4">
+                        <input type="submit" value="Login" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4">
                     </form>
                 </div>
             </div>
         </div>
 
         <script>
-            document.getElementById("sidebarCollapse").onclick = function () {
+            document.getElementById("sidebarCollapse").onclick = function() {
                 myFunction()
             };
 

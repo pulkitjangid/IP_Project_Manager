@@ -8,6 +8,8 @@ class MUser(models.Model):
     Roll_No = models.CharField(max_length=10)
     Description = models.TextField()
     Upload = models.FileField(null=True)
+    Marks = models.CharField(max_length=3,default='0', editable=True)
+
 
 class Room(models.Model):
     name = models.CharField(max_length=1000)

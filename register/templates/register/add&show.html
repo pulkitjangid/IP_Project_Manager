@@ -18,6 +18,7 @@
                     <th scope="col">Student Name</th>
                     <th scope="col">Project Name</th>
                     <th scope="col">Roll No</th>
+                    <th scope="col">Marks</th>
                     <th scope="col">Description</th>
                     <th scope="col">Action</th>
                     {% if user.is_superuser %}
@@ -33,6 +34,7 @@
                     <td>{{ s.Student_Name }}</td>
                     <td>{{ s.Project_Name }}</td>
                     <td>{{ s.Roll_No }}</td>
+                    <td>{{ s.Marks }}</td>
                     <td>{{ s.Description }}</td>
                     <td>
                         <a href="{% url 'updatedata' s.id %}" class="btn btn-warning btn-sm">Edit</a> {% if user.is_superuser %}

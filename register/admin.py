@@ -9,5 +9,5 @@ admin.site.register(Message)
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'Student_Name', 'Project_Name', 'Roll_No', 'Description')
+    list_display = ('id', 'Student_Name', 'Project_Name', 'Roll_No', 'Description','Marks','Upload')
 

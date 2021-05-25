@@ -28,5 +28,6 @@ class ProjectRegistration(forms.ModelForm):
              'Project_Name' : forms.TextInput(attrs={'class':'form-control'}),
              'Roll_No' : forms.TextInput(attrs={'class':'form-control'}),
              'Description' : forms.TextInput(attrs={'class':'form-control'}),
+             'Marks' : forms.HiddenInput(),
          }
 

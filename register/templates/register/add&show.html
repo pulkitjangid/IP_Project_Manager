@@ -11,7 +11,8 @@
     <div class="col-sm-8">
         <h4 class="text-center alert alert-info">Student Details</h4>
         {% if stu %}
-        <table class="table table-borderless table-hover mt-2">
+        <div class="hscroll">
+        <table class="table table-borderless table-hover mt-2 " width="100%" border="1" cellspacing="0" cellpadding="6">
             <thead class="table-light">
                 <tr>
                     <th scope="col">Id</th>
@@ -53,6 +54,7 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
         {% else %}
         <h4 class="text-center alert alert-warning">No Records</h4>
         {% endif %}

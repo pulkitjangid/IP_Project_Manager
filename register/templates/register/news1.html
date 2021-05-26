@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Project Manager</title>
+    <title>Latest Happenings</title>
     <link rel="stylesheet" href="{% static 'register/css/bootstrap.min.css' %}">
-
 </head>
-
 <style>
     .vertical-nav {
         min-width: 17rem;
@@ -74,16 +72,20 @@
     .text-gray {
         color: #aaa;
     }
-
-
     
+    .log {
+        margin-right: 0px;
+    }
+    .cards-item__card--title {
+font-size: 28px;
+min-height: 60px;}
 </style>
 
-
 <body>
-    <!-- Vertical navbar -->
+
+    <!-- navbar -->
     <div class="vertical-nav bg-white" id="sidebar">
-        <div class="py-4 px-3 mb-4 bg-light">
+        <div class="py-4 px-3 mb-3 bg-light">
             <div class="media d-flex align-items-center"><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Swami_Vivekananda_1893_Scanned_Image.jpg" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
                 <div class="media-body">
                     <h4 class="m-0">SVGMS</h4>
@@ -96,17 +98,17 @@
 
         <ul class="nav flex-column bg-white mb-0">
             <li class="nav-item">
-                <a href="profile/" class="nav-link text-dark font-italic">
+                <a href="/profile" class="nav-link text-dark font-italic ">
                     <i class="fa fa-user mr-3 text-primary fa-fw"></i> Profile
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-dark font-italic bg-light">
+                <a href="/home" class="nav-link text-dark font-italic">
                     <i class="fa fa-home mr-3 text-primary fa-fw"></i> Home
                 </a>
             </li>
             <li class="nav-item">
-                <a href="project" class="nav-link text-dark font-italic">
+                <a href="{% url 'add&show' %}" class="nav-link text-dark font-italic">
                     <i class="fa fa-plus-circle mr-3 text-primary fa-fw"></i> Add Project
                 </a>
             </li>
@@ -118,69 +120,35 @@
             </li>
 
             <li class="nav-item">
-                <a href="/news" class="nav-link text-dark font-italic">
-                    <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i> Latest Happenings
+                <a href="#" class="nav-link text-dark font-italic bg-light  ">
+                    <i class="fa fa-picture-o mr-3 text-primary fa-fw bg-light"></i> Latest Happenings
                 </a>
             </li>
         </ul>
 
-
     </div>
-    <!-- End vertical navbar -->
 
-
-    <!-- Page content holder -->
     <div class="page-content p-5" id="content">
         <!-- Toggle button -->
         <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i
-                class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menu</small></button>
+                class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menu</small></button> &nbsp;
         <a href="{% url 'logout' %}" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4 log">Logout</a>
-        <a href="{% url 'changepass' %}" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4 log">Change Password</a>
 
-
-        <!-- Demo content -->
-        <h2 class="display-4 text-white">IP Project Manager</h2>
-
-        </p>
+        <h2 class="display-4 text-white">Latest Happenings Aroud You</h2>
 
         <div class="separator"></div>
-
         <div class="row text-white">
-            <div class="col-lg-12">
-
-                <div class="col-lg-12"> 
-                    <div class="conatiner">
-                        <div class="row">
-                        <div class="p-5 rounded  shadow-sm col-sm-6">
-                        <h2 class=" display-6 text-white">Admin</h2>
-                        <div class="separator"></div>
-                        <dl>
-                            <dd>- Can add project & its files</dd>
-                            <dd>- Can edit & delete the project details</dd>
-                            <dd>- Can assign marks to the students</dd>
-                            <dd>- Can discuss with students different groups</dd>
-                            <dd>- Can see the latest happenings</dd>
-                        </dl>
-                        </div>
-                        <div class="p-5 rounded  shadow-sm col-sm-6">
-                            <h2 class=" display-6 text-white">Students</h2>
-                            <div class="separator"></div>
-                            <dl>
-                                <dd>- Can add project & its files</dd>
-                                <dd>- Can see marks</dd>
-                                <dd>- Can discuss with friends & teacher</dd>
-                                <dd>- Can see the latest happenings</dd>
-        
-                                
-                            </dl>
-                        </div>
-                    </div>
-                    </div>
-                </div> 
+            <div class="col-lg-12 par">
+                <div class="p-5 rounded  shadow-sm col-sm-12">
+                   
+                </div>
             </div>
-
         </div>
-        <!-- End demo content -->
+
+
+        {% block body %}
+        {% endblock %}
+
         <script>
             document.getElementById("sidebarCollapse").onclick = function() {
                 myFunction()

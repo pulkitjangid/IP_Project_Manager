@@ -2,10 +2,12 @@ from django.shortcuts import render, HttpResponseRedirect, redirect
 from .forms import ProjectRegistration
 from .models import MUser as data
 from .models import Room, Message
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from .forms import SignUpForm
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.core.mail import send_mail
+
 from django.http import HttpResponse, JsonResponse
 
 
@@ -14,7 +16,12 @@ from django.http import HttpResponse, JsonResponse
 def sign_up(request):
     if request.method == 'POST':
         frm = SignUpForm(request.POST)
+        
         if frm.is_valid():
+            email = frm.cleaned_data['email']
+            fname = frm.cleaned_data['first_name']
+            username = frm.cleaned_data['username']
+            send_mail('Registration Successfull', 'Dear '+fname+'\nYou have succesfully registered on IP project Manager , your username is '+username+'\n\nRegards', 'pulkitjangid420@gmail.com',[email], fail_silently=False)
             messages.success(request, "Account Created Sccessfully !!")
             frm.save()
             frm = SignUpForm()
@@ -39,7 +46,7 @@ def user_login(request):
                     messages.success(request, 'Logged in successfully !!')
                     return HttpResponseRedirect('/profile/')
                 else:
-                    messages.error(request, 'Not a valid user , please try again or sign up !')
+                    messages.success(request, 'Not a valid user , please try again or sign up !')
                     return HttpResponseRedirect('/login/')
         fm = AuthenticationForm()
         return render(request, 'register/login.html', {'form':fm})
@@ -50,6 +57,22 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/login/')
+
+def changepass(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            fm = PasswordChangeForm(user=request.user, data=request.POST)
+            if fm.is_valid():
+                fm.save()
+                update_session_auth_hash(request, fm.user)
+                messages.success(request, 'Password changed successfully')
+                return HttpResponseRedirect('/profile/')
+        else:
+            fm = PasswordChangeForm(user = request.user)
+        return render(request, 'register/changepass.html', {'form':fm})
+    else:
+        return HttpResponseRedirect('/login/')
+
 
 #User Profile
 def user_profile(request):
@@ -171,3 +194,16 @@ def getMessages(request, room):
     else:
         return HttpResponseRedirect('/login/')
 
+
+def news(request):
+    import requests
+    import json
+
+    url = ('https://newsapi.org/v2/everything?'
+       'q=Apple&'
+       'from=2021-05-26&'
+       'sortBy=popularity&'
+       'apiKey=b852b191d5284f518c3fd1f186ddf910')
+    response = requests.get(url)
+    api = json.loads(response.content)
+    return render(request, 'register/news.html', {'api': api})

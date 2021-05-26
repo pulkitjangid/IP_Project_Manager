@@ -119,7 +119,12 @@
                 </div>
             </div>
         </div>
-
+        {% if messages %} {% for message in messages %}
+        <small {% if message.tags %} class="{{ messsage.tags }}" {% endif %}>
+                    <script>
+                        alert('{{ message }}');
+                    </script>
+                </small> {% endfor %} {% endif %}
         <script>
             document.getElementById("sidebarCollapse").onclick = function() {
                 myFunction()

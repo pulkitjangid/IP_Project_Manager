@@ -1,15 +1,15 @@
 # IP_Project_Manager
 
-## `Link :- <a>pulkit31.pythonanywhere.com</a>`
+##`Link : -` [pulkit31.pythonanywhere.com](https://www.pulkit31.pythonannywhere.com)
 
-### `Python-Django Project made for the client Swami Vivekanand School.`
+###`Python-Django Project made for the client Swami Vivekanand School.`
 
-### `Features :- `
+###`Features :- `
 
-#### `1 ) Registration and Login`
-#### `2 ) Add Project details and its files`
-#### `3 ) Collabarative discussion using different groups`
-#### `4 ) Edit files and details (only for ADMIN)`
-#### `5 ) NEWS Api related to education`
-#### `6 ) Project marks allocation by ADMIN`
+####`1 ) Registration and Login`
+####`2 ) Add Project details and its files`
+####`3 ) Collabarative discussion using different groups`
+####`4 ) Edit files and details (only for ADMIN)`
+####`5 ) NEWS Api related to education`
+####`6 ) Project marks allocation by ADMIN`
 

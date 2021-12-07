@@ -2,4 +2,6 @@
 
 ### `Python-Django Project made for the client Swami Vivekanand School.`
 
-###
+### `Features`
+
+#### `Registration and Login`
